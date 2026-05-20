@@ -5,458 +5,383 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Свадьба Николая и Виктории</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f0eb;
             padding: 20px;
+            min-height: 100vh;
         }
 
         .container {
+            max-width: 480px;
+            margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-            padding: 50px 30px;
-            text-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
-        .header {
-            margin-bottom: 30px;
+        .content { padding: 32px 24px; }
+
+        .header { text-align: center; margin-bottom: 32px; }
+
+        .subtitle {
+            font-size: 13px;
+            color: #aaa;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
         }
 
-        .header h1 {
-            font-size: 28px;
-            color: #8b7355;
+        .names-main {
+            font-size: 34px;
+            font-weight: 700;
+            color: #2c2c2c;
             margin-bottom: 10px;
-            font-weight: normal;
-            letter-spacing: 2px;
+            line-height: 1.2;
         }
 
-        .names {
-            font-size: 36px;
-            color: #d4a574;
-            font-style: italic;
-            margin: 20px 0;
+        .date-main {
+            font-size: 15px;
+            color: #888;
+            letter-spacing: 1px;
         }
 
         .divider {
-            width: 100px;
-            height: 2px;
-            background: #d4a574;
-            margin: 20px auto;
+            width: 60px;
+            height: 1px;
+            background: #d4a5a5;
+            margin: 16px auto;
         }
 
-        .info {
-            margin: 30px 0;
-            line-height: 1.8;
-        }
+        .section { margin-bottom: 28px; }
 
-        .info-item {
-            margin: 15px 0;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .label {
-            font-weight: bold;
-            color: #8b7355;
-            display: block;
-            font-size: 14px;
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #aaa;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
         }
 
-        .value {
-            font-size: 22px;
-            color: #d4a574;
+        .info-block {
+            background: #faf8f6;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .info-item { margin-bottom: 12px; }
+        .info-item:last-child { margin-bottom: 0; }
+
+        .info-label {
+            font-size: 11px;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
         }
 
         /* Таймер */
-        .timer-section {
-            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
 
-        .timer-section h3 {
-            font-size: 16px;
-            color: #8b7355;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+        .timer-box {
+            background: #faf8f6;
+            border-radius: 10px;
+            padding: 14px 8px;
+            text-align: center;
         }
 
-        .timer {
+        .timer-number {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2c2c2c;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .timer-label {
+            font-size: 10px;
+            color: #bbb;
+            text-transform: lowercase;
+        }
+
+        /* Дресс-код — цветные кружки */
+        .dress-note {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .dress-gender { margin-bottom: 16px; }
+
+        .dress-gender-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .swatches {
             display: flex;
-            justify-content: space-around;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        .timer-item {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            min-width: 70px;
+        .swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
         }
 
-        .timer-number {
-            font-size: 28px;
-            font-weight: bold;
-            color: #d4a574;
+        .swatch-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        .timer-label {
-            font-size: 12px;
-            color: #8b7355;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        /* Дресс код */
-        .dress-code {
-            background: #fafaf8;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .dress-code h3 {
-            font-size: 16px;
-            color: #8b7355;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+        .swatch-name {
+            font-size: 10px;
+            color: #999;
             text-align: center;
         }
 
-        .dress-code-item {
-            margin-bottom: 15px;
-        }
+        /* Форма */
+        .form-group { margin-bottom: 12px; }
 
-        .dress-code-item strong {
-            color: #8b7355;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .colors {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 5px;
-        }
-
-        .color-tag {
-            background: #e8d4b8;
-            color: #8b7355;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-        }
-
-        .note {
-            font-size: 12px;
-            color: #999;
-            margin-top: 10px;
-            font-style: italic;
-        }
-
-        /* Опрос */
-        .poll-section {
-            margin: 30px 0;
-            padding: 25px;
-            background: white;
-            border: 2px solid #f5e6d3;
-            border-radius: 15px;
-        }
-
-        .poll-section h3 {
-            font-size: 16px;
-            color: #8b7355;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .poll-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .poll-btn {
-            padding: 12px 30px;
-            border: 2px solid #d4a574;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-            color: #d4a574;
-            font-weight: bold;
-        }
-
-        .poll-btn:hover {
-            background: #d4a574;
-            color: white;
-        }
-
-        .poll-btn.selected {
-            background: #d4a574;
-            color: white;
-        }
-
-        .poll-input {
+        input[type="text"], select, textarea {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
+            padding: 12px 14px;
+            border: 1px solid #e8e4df;
             border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Georgia', serif;
+            font-size: 15px;
+            font-family: inherit;
+            color: #333;
+            background: white;
         }
 
-        .telegram-info {
-            font-size: 13px;
-            color: #666;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+        input[type="text"]:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #d4a5a5;
         }
 
-        .telegram-link {
-            color: #0088cc;
-            text-decoration: none;
-            font-weight: bold;
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23aaa' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
         }
 
-        .telegram-link:hover {
-            text-decoration: underline;
-        }
+        textarea { min-height: 80px; resize: vertical; }
 
         .submit-btn {
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #d4a574 0%, #c49460 100%);
+            width: 100%;
+            padding: 14px;
+            background: #c9a090;
             color: white;
             border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-            font-family: 'Georgia', serif;
+            transition: background 0.2s;
+            letter-spacing: 0.5px;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 165, 116, 0.3);
+        .submit-btn:hover { background: #b8907f; }
+
+        .telegram-note {
+            font-size: 11px;
+            color: #bbb;
+            text-align: center;
+            margin-top: 14px;
         }
 
-        .location-info {
-            color: #666;
-            font-size: 16px;
+        .telegram-link { color: #0088cc; text-decoration: none; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #f0ebe5;
+            font-size: 13px;
+            color: #bbb;
         }
 
-        .time-info {
-            color: #d4a574;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .names {
-                font-size: 28px;
-            }
-
-            .timer-number {
-                font-size: 24px;
-            }
-
-            .info-item {
-                font-size: 16px;
-            }
+        @media (max-width: 420px) {
+            .timer-grid { grid-template-columns: repeat(2, 1fr); }
+            .names-main { font-size: 28px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Заголовок -->
-        <div class="header">
-            <h1>С радостью приглашают вас на</h1>
-            <div class="names">Николай & Виктория</div>
-            <div class="divider"></div>
+        <div class="content">
+
+            <!-- Шапка -->
+            <div class="header">
+                <div class="subtitle">Приглашение</div>
+                <div class="names-main">Николай & Виктория</div>
+                <div class="divider"></div>
+                <div class="date-main">05 июня 2026</div>
+            </div>
+
+            <!-- Таймер -->
+            <div class="section">
+                <div class="section-title">До свадьбы осталось</div>
+                <div class="timer-grid">
+                    <div class="timer-box"><div class="timer-number" id="days">0</div><div class="timer-label">дней</div></div>
+                    <div class="timer-box"><div class="timer-number" id="hours">0</div><div class="timer-label">часов</div></div>
+                    <div class="timer-box"><div class="timer-number" id="minutes">0</div><div class="timer-label">минут</div></div>
+                    <div class="timer-box"><div class="timer-number" id="seconds">0</div><div class="timer-label">секунд</div></div>
+                </div>
+            </div>
+
+            <!-- Место -->
+            <div class="section">
+                <div class="section-title">Место проведения</div>
+                <div class="info-block">
+                    <div class="info-item">
+                        <div class="info-label">Ресторан</div>
+                        <div class="info-value">Ной</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Адрес</div>
+                        <div class="info-value">г. Лермонтов, Ставропольский край</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Сбор гостей</div>
+                        <div class="info-value">17:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Дресс-код -->
+            <div class="section">
+                <div class="section-title">Dress Code</div>
+                <p class="dress-note">Будем благодарны, если вы поддержите атмосферу нашего праздника постельными оттенками в образах.</p>
+
+                <div class="dress-gender">
+                    <div class="dress-gender-title">Для девушек:</div>
+                    <div class="swatches">
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#f5f0c0;"></div>
+                            <span class="swatch-name">Лимонный</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#e8d9c0;"></div>
+                            <span class="swatch-name">Бежевый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#a8b89a;"></div>
+                            <span class="swatch-name">Оливковый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#9e7b5a;"></div>
+                            <span class="swatch-name">Коричневый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#b8b8b8;"></div>
+                            <span class="swatch-name">Серый</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dress-gender">
+                    <div class="dress-gender-title">Для мужчин:</div>
+                    <div class="swatches">
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#e8d9c0;"></div>
+                            <span class="swatch-name">Бежевый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#b8b8b8;"></div>
+                            <span class="swatch-name">Серый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#a8b89a;"></div>
+                            <span class="swatch-name">Оливковый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#9e7b5a;"></div>
+                            <span class="swatch-name">Коричневый</span>
+                        </div>
+                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#2c2c2c;"></div>
+                            <span class="swatch-name">Чёрный</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма -->
+            <div class="section">
+                <div class="section-title">Подтвердите присутствие</div>
+                <form id="rsvpForm" onsubmit="submitResponse(event)">
+                    <div class="form-group">
+                        <input type="text" id="nameInput" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="responseSelect" required>
+                            <option value="yes">С радостью приду</option>
+                            <option value="no">Не смогу приехать</option>
+                            <option value="maybe">Ещё не решил(а)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="commentInput" placeholder="Комментарий (не обязательно)"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Отправить ответ</button>
+                </form>
+                <div class="telegram-note">
+                    Ответы отправляются <a href="https://t.me/kolyyyyan" class="telegram-link">@kolyyyyan</a> в Телеграм
+                </div>
+            </div>
+
         </div>
-
-        <!-- Основная информация -->
-        <div class="info">
-            <div class="info-item">
-                <span class="label">📅 Дата</span>
-                <span class="value">5 июня 2026</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">🕔 Время</span>
-                <span class="time-info">17:00 (5 часов вечера)</span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">📍 Место</span>
-                <span class="value">Ресторан Ной</span>
-                <div class="location-info">Ставропольский край, г. Лермонтов</div>
-            </div>
-        </div>
-
-        <!-- Таймер -->
-        <div class="timer-section">
-            <h3>⏱ До встречи осталось</h3>
-            <div class="timer" id="timer">
-                <div class="timer-item">
-                    <div class="timer-number" id="days">0</div>
-                    <div class="timer-label">дней</div>
-                </div>
-                <div class="timer-item">
-                    <div class="timer-number" id="hours">0</div>
-                    <div class="timer-label">часов</div>
-                </div>
-                <div class="timer-item">
-                    <div class="timer-number" id="minutes">0</div>
-                    <div class="timer-label">минут</div>
-                </div>
-                <div class="timer-item">
-                    <div class="timer-number" id="seconds">0</div>
-                    <div class="timer-label">секунд</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Дресс код -->
-        <div class="dress-code">
-            <h3>👗 Дресс-код (постельные цвета)</h3>
-
-            <div class="dress-code-item">
-                <strong>Для девушек:</strong>
-                <div class="colors">
-                    <span class="color-tag">Лимонный</span>
-                    <span class="color-tag">Бежевый</span>
-                    <span class="color-tag">Оливковый</span>
-                    <span class="color-tag">Коричневый</span>
-                    <span class="color-tag">Серый</span>
-                </div>
-            </div>
-
-            <div class="dress-code-item">
-                <strong>Для мужчин:</strong>
-                <div class="colors">
-                    <span class="color-tag">Бежевый</span>
-                    <span class="color-tag">Серый</span>
-                    <span class="color-tag">Оливковый</span>
-                    <span class="color-tag">Коричневый</span>
-                    <span class="color-tag">Чёрный</span>
-                </div>
-            </div>
-
-            <div class="note">💡 Постельные цвета создают нежный и гармоничный образ</div>
-        </div>
-
-        <!-- Опрос -->
-        <div class="poll-section">
-            <h3>✋ Вы придёте?</h3>
-
-            <div class="poll-buttons">
-                <button class="poll-btn" onclick="selectResponse('yes')">Да, приду! ✓</button>
-                <button class="poll-btn" onclick="selectResponse('no')">Нет, не смогу ✗</button>
-                <button class="poll-btn" onclick="selectResponse('maybe')">Может быть ❓</button>
-            </div>
-
-            <input type="text" class="poll-input" id="nameInput" placeholder="Ваше имя (не обязательно)">
-
-            <button class="submit-btn" onclick="submitResponse()">Отправить ответ</button>
-
-            <div class="telegram-info">
-                ✉️ Ответы отправляются на <a href="https://t.me/kolyyyyan" class="telegram-link">@kolyyyyan</a> в Телеграм
-            </div>
-        </div>
+        <div class="footer">С любовью, Николай и Виктория ❤️</div>
     </div>
 
     <script>
-        let selectedResponse = null;
-
-        // Таймер обратного отсчёта
         function updateTimer() {
-            const weddingDate = new Date('2026-06-05T17:00:00').getTime();
-            const now = new Date().getTime();
-            const diff = weddingDate - now;
-
+            const target = new Date("2026-06-05T17:00:00").getTime();
+            const diff = target - Date.now();
             if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = days;
-                document.getElementById('hours').textContent = hours;
-                document.getElementById('minutes').textContent = minutes;
-                document.getElementById('seconds').textContent = seconds;
+                document.getElementById("days").textContent    = Math.floor(diff / 86400000);
+                document.getElementById("hours").textContent   = Math.floor(diff % 86400000 / 3600000);
+                document.getElementById("minutes").textContent = Math.floor(diff % 3600000 / 60000);
+                document.getElementById("seconds").textContent = Math.floor(diff % 60000 / 1000);
             }
         }
 
-        // Выбор ответа
-        function selectResponse(response) {
-            selectedResponse = response;
-            document.querySelectorAll('.poll-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.classList.add('selected');
+        function submitResponse(e) {
+            e.preventDefault();
+            const name    = document.getElementById("nameInput").value;
+            const resp    = document.getElementById("responseSelect").value;
+            const comment = document.getElementById("commentInput").value;
+            const labels  = { yes: "с радостью приду", no: "не смогу приехать", maybe: "ещё не решил(а)" };
+            let msg = name + " ответил(а): " + labels[resp];
+            if (comment) msg += "\nКомментарий: " + comment;
+            window.open("https://t.me/kolyyyyan?text=" + encodeURIComponent(msg), "_blank");
         }
 
-        // Отправка ответа
-        function submitResponse() {
-            const name = document.getElementById('nameInput').value || 'Гость';
-            
-            if (!selectedResponse) {
-                alert('Пожалуйста, выберите ответ');
-                return;
-            }
-
-            const responses = {
-                yes: 'приду',
-                no: 'не смогу прийти',
-                maybe: 'может быть'
-            };
-
-            const message = `${name} ответил(а): ${responses[selectedResponse]}`;
-            const telegramLink = `https://t.me/kolyyyyan?text=${encodeURIComponent(message)}`;
-            
-            window.open(telegramLink, '_blank');
-        }
-
-        // Инициализация
         updateTimer();
         setInterval(updateTimer, 1000);
     </script>
