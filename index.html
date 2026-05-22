@@ -10,9 +10,113 @@
 
         body {
             font-family: 'Montserrat', -apple-system, sans-serif;
-            background: #f0ebe3;
+            background: radial-gradient(circle at top, #f8f0ec 0%, #efe7df 45%, #e9dfd6 100%);
             padding: 16px;
             min-height: 100vh;
+        }
+
+        .petals {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .petal {
+            position: absolute;
+            top: -10vh;
+            font-size: 16px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+            filter: saturate(1.25);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.9; }
+            100% {
+                transform: translateY(120vh) translateX(24px) rotate(300deg);
+                opacity: 0;
+            }
+        }
+
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(52,35,30,0.45), rgba(52,35,30,0.56)),
+                        url("photos/2026-05-22 23.10.51.jpg") center/cover no-repeat;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+
+        .intro-screen.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .intro-card {
+            width: min(440px, 100%);
+            background: rgba(255, 250, 245, 0.8);
+            border: 1px solid rgba(255,255,255,0.45);
+            backdrop-filter: blur(3px);
+            border-radius: 20px;
+            padding: 26px 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: introPop 0.9s ease;
+        }
+
+        @keyframes introPop {
+            from { transform: translateY(18px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .intro-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: #3a2c28;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .intro-text {
+            color: #6f5a52;
+            font-size: 13px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .open-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ca7f67, #de9b85);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(201,131,106,0.4);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.92;
         }
 
         .container {
@@ -22,6 +126,14 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .container.is-open {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ===== FLOWER DECORATIONS ===== */
@@ -147,6 +259,8 @@
         .story-invite-text {
             text-align: center;
             padding: 20px 16px;
+            animation: fadeUp 0.8s ease both;
+            animation-delay: 0.15s;
         }
 
         .story-invite-text .story-now {
@@ -214,6 +328,20 @@
         }
 
         .section { margin-bottom: 28px; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .reveal.is-visible {
+            animation: fadeUp 0.7s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .section-title {
             font-size: 10px;
@@ -393,18 +521,56 @@
             color: #bbb;
         }
 
+        .music-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 0;
+            background: linear-gradient(135deg, #ca7f67, #de9b85);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(201,131,106,0.35);
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 9;
+            display: none;
+        }
+
+        .music-btn.is-visible {
+            display: block;
+        }
+
         @media (max-width: 420px) {
             .timer-grid { grid-template-columns: repeat(2, 1fr); }
             .names-main { font-size: 34px; }
             .flowers-top { font-size: 36px; }
+            .intro-title { font-size: 30px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="petals" id="petals"></div>
+
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-card">
+            <div class="intro-title">Николай & Виктория</div>
+            <div class="intro-text">Нажмите, чтобы погрузиться в атмосферу праздника</div>
+            <button class="open-btn" id="openInviteBtn">Открыть приглашение</button>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop preload="none">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kai_Engel/Chapter_One/Kai_Engel_-_07_-_Moonlight_Reprise.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-btn" id="musicBtn" aria-label="Включить или выключить музыку">🔈</button>
+
+    <div class="container" id="inviteContainer">
 
         <!-- ===== ИСТОРИЯ ===== -->
-        <div class="story-section">
+        <div class="story-section reveal">
             <div class="flowers-top">🌸🌺🌷🌸🌺</div>
 
             <div class="story-label">Наша история</div>
@@ -426,22 +592,19 @@
             <!-- Фото пары -->
             <div class="story-couple-grid">
                 <div class="story-couple-single">
-                    <img src="photos/2026-05-21 12.33.59.jpg" alt="Вместе">
+                    <img src="photos/2026-05-22 23.10.35.jpg" alt="Вместе">
                 </div>
                 <div class="story-couple-single">
-                    <img src="photos/2026-05-22 23.10.35.jpg" alt="Вместе">
+                    <img src="photos/2026-05-22 23.10.39.jpg" alt="Вместе">
                 </div>
             </div>
             <div class="story-couple-grid">
                 <div class="story-couple-single">
-                    <img src="photos/2026-05-22 23.10.39.jpg" alt="Вместе">
-                </div>
-                <div class="story-couple-single">
                     <img src="photos/2026-05-22 23.10.48.jpg" alt="Вместе">
                 </div>
-            </div>
-            <div class="story-couple-wide">
-                <img src="photos/2026-05-22 23.10.51.jpg" alt="Вместе">
+                <div class="story-couple-single">
+                    <img src="photos/2026-05-22 23.10.51.jpg" alt="Вместе">
+                </div>
             </div>
 
             <!-- Текст-приглашение -->
@@ -464,7 +627,7 @@
             </div>
 
             <!-- Таймер -->
-            <div class="section">
+            <div class="section reveal">
                 <div class="section-title">До свадьбы осталось</div>
                 <div class="timer-grid">
                     <div class="timer-box"><div class="timer-number" id="days">0</div><div class="timer-label">дней</div></div>
@@ -475,7 +638,7 @@
             </div>
 
             <!-- Место -->
-            <div class="section">
+            <div class="section reveal">
                 <div class="section-title">Место проведения</div>
                 <div class="info-block">
                     <div class="info-item">
@@ -494,7 +657,7 @@
             </div>
 
             <!-- Дресс-код -->
-            <div class="section">
+            <div class="section reveal">
                 <div class="section-title">Dress Code</div>
                 <p class="dress-note">Будем очень благодарны, если в своих нарядах вы поддержите атмосферу праздника!</p>
 
@@ -554,7 +717,7 @@
             <div class="flowers-divider">🌺🌷🌻🌷🌺</div>
 
             <!-- Форма -->
-            <div class="section" style="margin-top: 24px;">
+            <div class="section reveal" style="margin-top: 24px;">
                 <div class="section-title">Подтвердите присутствие</div>
                 <form id="rsvpForm" onsubmit="submitResponse(event)">
                     <div class="form-group">
@@ -582,6 +745,13 @@
     </div>
 
     <script>
+        const introScreen = document.getElementById("introScreen");
+        const openInviteBtn = document.getElementById("openInviteBtn");
+        const inviteContainer = document.getElementById("inviteContainer");
+        const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const petals = document.getElementById("petals");
+
         function updateTimer() {
             const target = new Date("2026-06-05T17:00:00").getTime();
             const diff = target - Date.now();
@@ -604,8 +774,63 @@
             window.open("https://t.me/kolyyyyan?text=" + encodeURIComponent(msg), "_blank");
         }
 
+        function startPetals() {
+            const symbols = ["🌸", "🌺", "🌷", "🌼"];
+            setInterval(() => {
+                const petal = document.createElement("span");
+                petal.className = "petal";
+                petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                petal.style.left = Math.random() * 100 + "vw";
+                petal.style.animationDuration = (5 + Math.random() * 4) + "s";
+                petal.style.fontSize = (13 + Math.random() * 10) + "px";
+                petals.appendChild(petal);
+                setTimeout(() => petal.remove(), 9000);
+            }, 600);
+        }
+
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        }
+
+        function setMusicIcon() {
+            musicBtn.textContent = bgMusic.paused ? "🔈" : "🔊";
+        }
+
+        openInviteBtn.addEventListener("click", async () => {
+            introScreen.classList.add("is-hidden");
+            inviteContainer.classList.add("is-open");
+            musicBtn.classList.add("is-visible");
+            initReveal();
+            setMusicIcon();
+            try {
+                await bgMusic.play();
+                setMusicIcon();
+            } catch (e) {
+                setMusicIcon();
+            }
+        });
+
+        musicBtn.addEventListener("click", async () => {
+            if (bgMusic.paused) {
+                try { await bgMusic.play(); } catch (e) {}
+            } else {
+                bgMusic.pause();
+            }
+            setMusicIcon();
+        });
+
         updateTimer();
         setInterval(updateTimer, 1000);
+        startPetals();
     </script>
 </body>
 </html>
