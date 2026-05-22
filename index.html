@@ -10,7 +10,11 @@
 
         body {
             font-family: 'Montserrat', -apple-system, sans-serif;
-            background: radial-gradient(circle at top, #f8f0ec 0%, #efe7df 45%, #e9dfd6 100%);
+            background-color: #ede5da;
+            background-image:
+                radial-gradient(ellipse at 20% 10%, rgba(210,170,150,0.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 80%, rgba(195,160,175,0.28) 0%, transparent 55%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a898' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             padding: 16px;
             min-height: 100vh;
         }
@@ -47,14 +51,29 @@
         .intro-screen {
             position: fixed;
             inset: 0;
-            background: linear-gradient(rgba(52,35,30,0.45), rgba(52,35,30,0.56)),
-                        url("photos/2026-05-22 23.10.51.jpg") center/cover no-repeat;
+            background: #1a1310;
             z-index: 20;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
             transition: opacity 0.7s ease, visibility 0.7s ease;
+            overflow: hidden;
+        }
+
+        .intro-bg-photos {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .intro-bg-photos img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            filter: brightness(0.45) saturate(0.85);
         }
 
         .intro-screen.is-hidden {
@@ -136,22 +155,52 @@
             transform: translateY(0);
         }
 
-        /* ===== FLOWER DECORATIONS ===== */
+        /* ===== DECORATIONS ===== */
         .flowers-top {
             text-align: center;
-            padding: 28px 16px 0;
-            font-size: 48px;
+            padding: 32px 16px 0;
             line-height: 1;
-            letter-spacing: 4px;
-            filter: saturate(1.6);
+        }
+
+        .flowers-top svg, .flower-line svg, .flowers-divider svg {
+            display: inline-block;
+        }
+
+        .ornament-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 16px 0 8px;
+            color: #c9836a;
+        }
+
+        .ornament-line::before,
+        .ornament-line::after {
+            content: '';
+            flex: 1;
+            max-width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4a5a5);
+        }
+
+        .ornament-line::after {
+            background: linear-gradient(90deg, #d4a5a5, transparent);
         }
 
         .flowers-divider {
-            text-align: center;
-            font-size: 26px;
-            letter-spacing: 6px;
-            margin: 12px 0;
-            filter: saturate(1.8);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .flowers-divider::before,
+        .flowers-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4b8a8, transparent);
         }
 
         .flower-line {
@@ -161,7 +210,6 @@
             gap: 6px;
             font-size: 22px;
             margin: 10px 0;
-            filter: saturate(2);
         }
 
         /* ===== STORY SECTION ===== */
@@ -192,6 +240,8 @@
             overflow: hidden;
             aspect-ratio: 3/4;
             background: #e8e0d8;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.08);
+            border: 3px solid #fff;
         }
 
         .story-photo-wrap img {
@@ -199,6 +249,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .story-photo-wrap:hover img {
+            transform: scale(1.03);
         }
 
         .story-photo-caption {
@@ -232,6 +287,8 @@
             overflow: hidden;
             aspect-ratio: 3/4;
             background: #e8e0d8;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.08);
+            border: 3px solid #fff;
         }
 
         .story-couple-single img {
@@ -239,6 +296,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .story-couple-single:hover img {
+            transform: scale(1.03);
         }
 
         .story-couple-wide {
@@ -554,6 +616,10 @@
     <div class="petals" id="petals"></div>
 
     <div class="intro-screen" id="introScreen">
+        <div class="intro-bg-photos">
+            <img src="photos/2026-05-22 23.10.45.jpg" alt="">
+            <img src="photos/2026-05-22 23.10.42.jpg" alt="">
+        </div>
         <div class="intro-card">
             <div class="intro-title">Николай & Виктория</div>
             <div class="intro-text">Нажмите, чтобы погрузиться в атмосферу праздника</div>
@@ -571,7 +637,23 @@
 
         <!-- ===== ИСТОРИЯ ===== -->
         <div class="story-section reveal">
-            <div class="flowers-top">🌸🌺🌷🌸🌺</div>
+            <div class="flowers-top">
+                <svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M90 18 C80 8, 65 5, 55 12 C65 8, 75 14, 90 18Z" fill="#e8a090" opacity="0.7"/>
+                    <path d="M90 18 C100 8, 115 5, 125 12 C115 8, 105 14, 90 18Z" fill="#e8a090" opacity="0.7"/>
+                    <path d="M90 18 C80 28, 65 31, 55 24 C65 28, 75 22, 90 18Z" fill="#d4907a" opacity="0.6"/>
+                    <path d="M90 18 C100 28, 115 31, 125 24 C115 28, 105 22, 90 18Z" fill="#d4907a" opacity="0.6"/>
+                    <circle cx="90" cy="18" r="5" fill="#c9836a"/>
+                    <line x1="10" y1="18" x2="50" y2="18" stroke="#d4b8a8" stroke-width="0.8" opacity="0.6"/>
+                    <line x1="130" y1="18" x2="170" y2="18" stroke="#d4b8a8" stroke-width="0.8" opacity="0.6"/>
+                    <circle cx="10" cy="18" r="2" fill="#d4b8a8" opacity="0.5"/>
+                    <circle cx="170" cy="18" r="2" fill="#d4b8a8" opacity="0.5"/>
+                    <circle cx="25" cy="14" r="1.5" fill="#e8a090" opacity="0.5"/>
+                    <circle cx="40" cy="22" r="1.5" fill="#e8a090" opacity="0.5"/>
+                    <circle cx="155" cy="14" r="1.5" fill="#e8a090" opacity="0.5"/>
+                    <circle cx="140" cy="22" r="1.5" fill="#e8a090" opacity="0.5"/>
+                </svg>
+            </div>
 
             <div class="story-label">Наша история</div>
 
@@ -613,7 +695,15 @@
                 <div class="story-big">Мы приглашаем вас разделить с нами самый важный день нашей жизни</div>
             </div>
 
-            <div class="flower-line">🌹 🌼 🌸 🌼 🌹</div>
+            <div class="ornament-line">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12 C9 7, 4 5, 2 8 C5 5, 9 9, 12 12Z" fill="#e8a090"/>
+                    <path d="M12 12 C15 7, 20 5, 22 8 C19 5, 15 9, 12 12Z" fill="#e8a090"/>
+                    <path d="M12 12 C9 17, 4 19, 2 16 C5 19, 9 15, 12 12Z" fill="#d4907a"/>
+                    <path d="M12 12 C15 17, 20 19, 22 16 C19 19, 15 15, 12 12Z" fill="#d4907a"/>
+                    <circle cx="12" cy="12" r="3" fill="#c9836a"/>
+                </svg>
+            </div>
         </div>
 
         <div class="content">
@@ -622,7 +712,7 @@
             <div class="header">
                 <div class="subtitle">Приглашение</div>
                 <div class="names-main">Николай & Виктория</div>
-                <div class="divider">🌸</div>
+                <div class="divider">✦</div>
                 <div class="date-main">05 июня 2026</div>
             </div>
 
@@ -662,7 +752,7 @@
                 <p class="dress-note">Будем очень благодарны, если в своих нарядах вы поддержите атмосферу праздника!</p>
 
                 <div class="dress-gender">
-                    <div class="dress-gender-title">🌸 Для девушек:</div>
+                    <div class="dress-gender-title">Для девушек:</div>
                     <div class="swatches">
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#e8607a;"></div>
@@ -683,12 +773,14 @@
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#c97ece;"></div>
                             <span class="swatch-name">Сирень</span>
-                        </div>
-                    </div>
+                        </div>                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#c2848a;"></div>
+                            <span class="swatch-name">Пыльная роза</span>
+                        </div>                    </div>
                 </div>
 
                 <div class="dress-gender">
-                    <div class="dress-gender-title">🤵 Для мужчин:</div>
+                    <div class="dress-gender-title">Для мужчин:</div>
                     <div class="swatches">
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#e8d9c0;"></div>
@@ -714,7 +806,15 @@
                 </div>
             </div>
 
-            <div class="flowers-divider">🌺🌷🌻🌷🌺</div>
+            <div class="flowers-divider">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 10 C7.5 6, 3 4, 1 7 C4 4, 8 8, 10 10Z" fill="#e8a090"/>
+                    <path d="M10 10 C12.5 6, 17 4, 19 7 C16 4, 12 8, 10 10Z" fill="#e8a090"/>
+                    <path d="M10 10 C7.5 14, 3 16, 1 13 C4 16, 8 12, 10 10Z" fill="#d4907a"/>
+                    <path d="M10 10 C12.5 14, 17 16, 19 13 C16 16, 12 12, 10 10Z" fill="#d4907a"/>
+                    <circle cx="10" cy="10" r="2.5" fill="#c9836a"/>
+                </svg>
+            </div>
 
             <!-- Форма -->
             <div class="section reveal" style="margin-top: 24px;">
@@ -741,7 +841,7 @@
             </div>
 
         </div>
-        <div class="footer">🌸 С любовью, Николай и Виктория ❤️ 🌸</div>
+        <div class="footer">С любовью, Николай и Виктория ❤️</div>
     </div>
 
     <script>
