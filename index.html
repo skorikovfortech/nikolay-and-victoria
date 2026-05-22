@@ -6,46 +6,83 @@
     <title>Свадьба Николая и Виктории</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+    /* ===== ЦВЕТОВАЯ ПАЛИТРА =====
+       --cream:    #FAF5EF   — фон карточек
+       --sand:     #EDE0D0   — фон страницы
+       --blush:    #C9836A   — акцент (заголовки, кнопки)
+       --rose:     #D4A5A5   — мягкий розовый (линии, тени)
+       --bark:     #5C3D2E   — тёмный текст
+       --mist:     #F2EBE3   — светлые блоки
+    ========================================= */
+        :root {
+            --cream: #f9f4ee;
+            --sand: #eadfce;
+            --blush: #b67867;
+            --rose: #cfa3a6;
+            --bark: #4f3a32;
+            --mist: #f3ece3;
+            --line: #e4d4c5;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', -apple-system, sans-serif;
-            background-color: #ede5da;
+            background-color: var(--sand);
             background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(210,170,150,0.35) 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 80%, rgba(195,160,175,0.28) 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 10%, rgba(195,142,122,0.34) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 80%, rgba(173,136,150,0.24) 0%, transparent 55%),
                 url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a898' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             padding: 16px;
             min-height: 100vh;
+            color: var(--bark);
         }
 
-        .petals {
+        .ambient {
             position: fixed;
             inset: 0;
             pointer-events: none;
             overflow: hidden;
-            z-index: 2;
+            z-index: 1;
         }
 
-        .petal {
+        .ambient-orb {
             position: absolute;
-            top: -10vh;
-            font-size: 16px;
-            opacity: 0.8;
-            animation: fall linear forwards;
-            filter: saturate(1.25);
+            border-radius: 50%;
+            filter: blur(10px);
+            opacity: 0.35;
+            animation: drift 18s ease-in-out infinite alternate;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 0.9; }
-            100% {
-                transform: translateY(120vh) translateX(24px) rotate(300deg);
-                opacity: 0;
-            }
+        .ambient-orb.one {
+            width: 240px;
+            height: 240px;
+            left: -60px;
+            top: 12vh;
+            background: radial-gradient(circle, rgba(212,165,165,0.7), rgba(212,165,165,0));
+        }
+
+        .ambient-orb.two {
+            width: 280px;
+            height: 280px;
+            right: -80px;
+            top: 45vh;
+            background: radial-gradient(circle, rgba(190,146,122,0.55), rgba(190,146,122,0));
+            animation-delay: 1.6s;
+        }
+
+        .ambient-orb.three {
+            width: 210px;
+            height: 210px;
+            left: 30%;
+            bottom: -70px;
+            background: radial-gradient(circle, rgba(176,146,159,0.45), rgba(176,146,159,0));
+            animation-delay: 0.9s;
+        }
+
+        @keyframes drift {
+            from { transform: translateY(-8px) translateX(0); }
+            to { transform: translateY(14px) translateX(10px); }
         }
 
         .intro-screen {
@@ -144,10 +181,12 @@
             background: #fffdf9;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+            box-shadow: 0 12px 40px rgba(79,58,50,0.14);
             opacity: 0;
             transform: translateY(14px);
             transition: opacity 0.7s ease, transform 0.7s ease;
+            position: relative;
+            z-index: 3;
         }
 
         .container.is-open {
@@ -172,7 +211,7 @@
             justify-content: center;
             gap: 10px;
             margin: 16px 0 8px;
-            color: #c9836a;
+            color: var(--blush);
         }
 
         .ornament-line::before,
@@ -181,11 +220,11 @@
             flex: 1;
             max-width: 50px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #d4a5a5);
+            background: linear-gradient(90deg, transparent, var(--rose));
         }
 
         .ornament-line::after {
-            background: linear-gradient(90deg, #d4a5a5, transparent);
+            background: linear-gradient(90deg, var(--rose), transparent);
         }
 
         .flowers-divider {
@@ -200,7 +239,7 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #d4b8a8, transparent);
+            background: linear-gradient(90deg, transparent, #d8b6a7, transparent);
         }
 
         .flower-line {
@@ -221,7 +260,7 @@
             text-align: center;
             font-size: 10px;
             font-weight: 600;
-            color: #c9836a;
+            color: var(--blush);
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
@@ -272,7 +311,7 @@
             text-align: center;
             font-size: 22px;
             margin: 6px 0;
-            color: #c9836a;
+            color: var(--blush);
         }
 
         .story-couple-grid {
@@ -337,7 +376,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             font-weight: 600;
-            color: #2c2c2c;
+            color: var(--bark);
             line-height: 1.4;
         }
 
@@ -365,7 +404,7 @@
 
         .date-main {
             font-size: 13px;
-            color: #aaa;
+            color: #9c8d84;
             letter-spacing: 2px;
             font-weight: 500;
         }
@@ -376,7 +415,7 @@
             justify-content: center;
             gap: 10px;
             margin: 14px 0;
-            color: #d4a5a5;
+            color: var(--rose);
             font-size: 18px;
         }
 
@@ -386,7 +425,7 @@
             flex: 1;
             max-width: 60px;
             height: 1px;
-            background: #e8d5c4;
+            background: var(--line);
         }
 
         .section { margin-bottom: 28px; }
@@ -408,7 +447,7 @@
         .section-title {
             font-size: 10px;
             font-weight: 600;
-            color: #c9836a;
+            color: var(--blush);
             text-transform: uppercase;
             letter-spacing: 2.5px;
             margin-bottom: 14px;
@@ -416,10 +455,10 @@
         }
 
         .info-block {
-            background: #faf6f1;
+            background: var(--mist);
             padding: 18px;
             border-radius: 12px;
-            border: 1px solid #f0e8df;
+            border: 1px solid #e9dccf;
         }
 
         .info-item { margin-bottom: 12px; }
@@ -427,7 +466,7 @@
 
         .info-label {
             font-size: 10px;
-            color: #c9836a;
+            color: var(--blush);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 3px;
@@ -448,25 +487,25 @@
         }
 
         .timer-box {
-            background: #faf6f1;
+            background: var(--mist);
             border-radius: 12px;
             padding: 14px 8px;
             text-align: center;
-            border: 1px solid #f0e8df;
+            border: 1px solid #e9dccf;
         }
 
         .timer-number {
             font-family: 'Cormorant Garamond', serif;
             font-size: 30px;
             font-weight: 600;
-            color: #2c2c2c;
+            color: var(--bark);
             line-height: 1;
             margin-bottom: 4px;
         }
 
         .timer-label {
             font-size: 9px;
-            color: #c9836a;
+            color: var(--blush);
             text-transform: lowercase;
             font-weight: 500;
             letter-spacing: 0.5px;
@@ -536,7 +575,7 @@
 
         input[type="text"]:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #c9836a;
+            border-color: var(--blush);
         }
 
         select {
@@ -552,7 +591,7 @@
         .submit-btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #c9836a, #d4a5a5);
+            background: linear-gradient(135deg, var(--blush), var(--rose));
             color: white;
             border: none;
             border-radius: 10px;
@@ -568,7 +607,7 @@
 
         .telegram-note {
             font-size: 11px;
-            color: #bbb;
+            color: #a6968b;
             text-align: center;
             margin-top: 14px;
         }
@@ -578,9 +617,9 @@
         .footer {
             text-align: center;
             padding: 24px 20px;
-            border-top: 1px solid #f0ebe5;
+            border-top: 1px solid #e7d8ca;
             font-size: 13px;
-            color: #bbb;
+            color: #9f8f84;
         }
 
         .music-btn {
@@ -591,13 +630,59 @@
             height: 52px;
             border-radius: 50%;
             border: 0;
-            background: linear-gradient(135deg, #ca7f67, #de9b85);
+            background: linear-gradient(135deg, var(--blush), var(--rose));
             color: #fff;
-            box-shadow: 0 8px 20px rgba(201,131,106,0.35);
+            box-shadow: 0 8px 20px rgba(182,120,103,0.35);
             font-size: 22px;
             cursor: pointer;
             z-index: 9;
             display: none;
+        }
+
+        .story-invite-text {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            padding: 24px 14px;
+            animation: fadeUp 0.8s ease both;
+            animation-delay: 0.15s;
+        }
+
+        .story-invite-text::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(38, 28, 25, 0.52), rgba(38, 28, 25, 0.56)),
+                url("photos/2026-05-22 23.10.35.jpg"),
+                url("photos/2026-05-22 23.10.39.jpg"),
+                url("photos/2026-05-22 23.10.51.jpg");
+            background-size: cover, 40% 100%, 30% 100%, 30% 100%;
+            background-position: center, left center, center center, right center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .story-invite-text > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-invite-text .story-now {
+            color: #f0ddd2;
+            margin-bottom: 2px;
+        }
+
+        .story-invite-text .story-big {
+            color: #fff;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.35);
         }
 
         .music-btn.is-visible {
@@ -613,7 +698,11 @@
     </style>
 </head>
 <body>
-    <div class="petals" id="petals"></div>
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient-orb one"></div>
+        <div class="ambient-orb two"></div>
+        <div class="ambient-orb three"></div>
+    </div>
 
     <div class="intro-screen" id="introScreen">
         <div class="intro-bg-photos">
@@ -627,8 +716,9 @@
         </div>
     </div>
 
-    <audio id="bgMusic" loop preload="none">
-        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kai_Engel/Chapter_One/Kai_Engel_-_07_-_Moonlight_Reprise.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop preload="auto" playsinline>
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <button class="music-btn" id="musicBtn" aria-label="Включить или выключить музыку">🔈</button>
@@ -657,19 +747,7 @@
 
             <div class="story-label">Наша история</div>
 
-            <!-- Детские фото -->
-            <div class="story-childhood">
-                <div class="story-photo-wrap">
-                    <img src="photos/2026-05-22 23.10.45.jpg" alt="Коля в детстве">
-                    <div class="story-photo-caption">Коля</div>
-                </div>
-                <div class="story-photo-wrap">
-                    <img src="photos/2026-05-22 23.10.42.jpg" alt="Вика в детстве">
-                    <div class="story-photo-caption">Вика</div>
-                </div>
-            </div>
-
-            <div class="story-arrow">↓</div>
+            <div class="story-now" style="text-align:center; margin-bottom:10px; color:#9f8b80;">Теперь мы выросли и очень ждём вас на нашем празднике</div>
 
             <!-- Фото пары -->
             <div class="story-couple-grid">
@@ -850,7 +928,6 @@
         const inviteContainer = document.getElementById("inviteContainer");
         const bgMusic = document.getElementById("bgMusic");
         const musicBtn = document.getElementById("musicBtn");
-        const petals = document.getElementById("petals");
 
         function updateTimer() {
             const target = new Date("2026-06-05T17:00:00").getTime();
@@ -874,20 +951,6 @@
             window.open("https://t.me/kolyyyyan?text=" + encodeURIComponent(msg), "_blank");
         }
 
-        function startPetals() {
-            const symbols = ["🌸", "🌺", "🌷", "🌼"];
-            setInterval(() => {
-                const petal = document.createElement("span");
-                petal.className = "petal";
-                petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                petal.style.left = Math.random() * 100 + "vw";
-                petal.style.animationDuration = (5 + Math.random() * 4) + "s";
-                petal.style.fontSize = (13 + Math.random() * 10) + "px";
-                petals.appendChild(petal);
-                setTimeout(() => petal.remove(), 9000);
-            }, 600);
-        }
-
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
@@ -905,18 +968,20 @@
             musicBtn.textContent = bgMusic.paused ? "🔈" : "🔊";
         }
 
+        async function ensureMusicPlaying() {
+            bgMusic.volume = 0.45;
+            try {
+                await bgMusic.play();
+            } catch (e) {}
+            setMusicIcon();
+        }
+
         openInviteBtn.addEventListener("click", async () => {
             introScreen.classList.add("is-hidden");
             inviteContainer.classList.add("is-open");
             musicBtn.classList.add("is-visible");
             initReveal();
-            setMusicIcon();
-            try {
-                await bgMusic.play();
-                setMusicIcon();
-            } catch (e) {
-                setMusicIcon();
-            }
+            await ensureMusicPlaying();
         });
 
         musicBtn.addEventListener("click", async () => {
@@ -928,9 +993,19 @@
             setMusicIcon();
         });
 
+        document.addEventListener("visibilitychange", () => {
+            if (!document.hidden && inviteContainer.classList.contains("is-open") && bgMusic.paused) {
+                ensureMusicPlaying();
+            }
+        });
+
+        bgMusic.addEventListener("ended", () => {
+            ensureMusicPlaying();
+        });
+
         updateTimer();
         setInterval(updateTimer, 1000);
-        startPetals();
+        setMusicIcon();
     </script>
 </body>
 </html>
