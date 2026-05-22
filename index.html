@@ -533,7 +533,7 @@
 
         .swatches {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -541,22 +541,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 0;
         }
 
         .swatch-circle {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.9);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.18), inset 0 1px 2px rgba(255,255,255,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .swatch-circle:hover {
+            transform: scale(1.08);
         }
 
         .swatch-name {
-            font-size: 9px;
-            color: #888;
-            text-align: center;
-            font-weight: 500;
+            display: none;
         }
 
         /* Форма */
@@ -660,13 +662,10 @@
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(rgba(38, 28, 25, 0.52), rgba(38, 28, 25, 0.56)),
-                url("photos/2026-05-22 23.10.35.jpg"),
-                url("photos/2026-05-22 23.10.39.jpg"),
+                linear-gradient(135deg, rgba(30,20,18,0.58) 0%, rgba(38,26,22,0.52) 100%),
                 url("photos/2026-05-22 23.10.51.jpg");
-            background-size: cover, 40% 100%, 30% 100%, 30% 100%;
-            background-position: center, left center, center center, right center;
-            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center 30%;
             z-index: 0;
         }
 
@@ -791,7 +790,7 @@
                 <div class="subtitle">Приглашение</div>
                 <div class="names-main">Николай & Виктория</div>
                 <div class="divider">✦</div>
-                <div class="date-main">05 июня 2026</div>
+                <div class="date-main">05 сентября 2026</div>
             </div>
 
             <!-- Таймер -->
@@ -834,27 +833,23 @@
                     <div class="swatches">
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#e8607a;"></div>
-                            <span class="swatch-name">Розовый</span>
                         </div>
                         <div class="swatch">
-                            <div class="swatch-circle" style="background:#e8a84a;"></div>
-                            <span class="swatch-name">Персик</span>
+                            <div class="swatch-circle" style="background:#ffb48a;"></div>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#7bba6e;"></div>
-                            <span class="swatch-name">Зелёный</span>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#6aa8e0;"></div>
-                            <span class="swatch-name">Голубой</span>
                         </div>
                         <div class="swatch">
-                            <div class="swatch-circle" style="background:#c97ece;"></div>
-                            <span class="swatch-name">Сирень</span>
-                        </div>                        <div class="swatch">
+                            <div class="swatch-circle" style="background:#b47fc4;"></div>
+                        </div>
+                        <div class="swatch">
                             <div class="swatch-circle" style="background:#c2848a;"></div>
-                            <span class="swatch-name">Пыльная роза</span>
-                        </div>                    </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="dress-gender">
@@ -862,23 +857,18 @@
                     <div class="swatches">
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#e8d9c0;"></div>
-                            <span class="swatch-name">Бежевый</span>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#b8b8b8;"></div>
-                            <span class="swatch-name">Серый</span>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#7b9e7a;"></div>
-                            <span class="swatch-name">Оливковый</span>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#9e7b5a;"></div>
-                            <span class="swatch-name">Коричневый</span>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#2c2c2c;"></div>
-                            <span class="swatch-name">Чёрный</span>
                         </div>
                     </div>
                 </div>
@@ -913,9 +903,6 @@
                     </div>
                     <button type="submit" class="submit-btn">Отправить ответ</button>
                 </form>
-                <div class="telegram-note">
-                    Ответы отправляются <a href="https://t.me/kolyyyyan" class="telegram-link">@kolyyyyan</a> в Телеграм
-                </div>
             </div>
 
         </div>
@@ -930,7 +917,7 @@
         const musicBtn = document.getElementById("musicBtn");
 
         function updateTimer() {
-            const target = new Date("2026-06-05T17:00:00").getTime();
+            const target = new Date("2026-09-05T17:00:00").getTime();
             const diff = target - Date.now();
             if (diff > 0) {
                 document.getElementById("days").textContent    = Math.floor(diff / 86400000);
