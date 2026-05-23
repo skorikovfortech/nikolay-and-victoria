@@ -109,8 +109,16 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top center;
-            filter: brightness(0.45) saturate(0.85);
+            object-position: center 18%;
+            filter: brightness(0.42) saturate(0.8);
+        }
+
+        .intro-bg-photos img:first-child {
+            object-position: center 25%;
+        }
+
+        .intro-bg-photos img:last-child {
+            object-position: center 10%;
         }
 
         .intro-screen.is-hidden {
@@ -342,6 +350,18 @@
             transform: scale(1.03);
         }
 
+        /* staggered photo appear */
+        .photo-item {
+            opacity: 0;
+            transform: scale(0.93) translateY(14px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .photo-item.photo-in {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
         .story-couple-wide {
             border-radius: 14px;
             overflow: hidden;
@@ -533,11 +553,12 @@
 
         .swatches {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .swatch {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -545,16 +566,18 @@
         }
 
         .swatch-circle {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.18), inset 0 1px 2px rgba(255,255,255,0.3);
-            transition: transform 0.2s ease;
+            width: 46px;
+            height: 64px;
+            border-radius: 999px;
+            border: 2.5px solid rgba(255,255,255,0.92);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.16), inset 0 1px 3px rgba(255,255,255,0.35);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+            cursor: pointer;
         }
 
         .swatch-circle:hover {
-            transform: scale(1.08);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.22), inset 0 1px 3px rgba(255,255,255,0.4);
         }
 
         .swatch-name {
@@ -750,18 +773,18 @@
 
             <!-- Фото пары -->
             <div class="story-couple-grid">
-                <div class="story-couple-single">
+                <div class="story-couple-single photo-item">
                     <img src="photos/2026-05-22 23.10.35.jpg" alt="Вместе">
                 </div>
-                <div class="story-couple-single">
+                <div class="story-couple-single photo-item">
                     <img src="photos/2026-05-22 23.10.39.jpg" alt="Вместе">
                 </div>
             </div>
             <div class="story-couple-grid">
-                <div class="story-couple-single">
+                <div class="story-couple-single photo-item">
                     <img src="photos/2026-05-22 23.10.48.jpg" alt="Вместе">
                 </div>
-                <div class="story-couple-single">
+                <div class="story-couple-single photo-item">
                     <img src="photos/2026-05-22 23.10.51.jpg" alt="Вместе">
                 </div>
             </div>
@@ -949,6 +972,23 @@
             }, { threshold: 0.12 });
 
             document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+            // staggered photo items
+            const photoObs = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const siblings = Array.from(entry.target.parentElement.querySelectorAll(".photo-item"));
+                        const allItems = document.querySelectorAll(".photo-item");
+                        const idx = Array.from(allItems).indexOf(entry.target);
+                        setTimeout(() => {
+                            entry.target.classList.add("photo-in");
+                        }, (idx % 2) * 150);
+                        photoObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(".photo-item").forEach((el) => photoObs.observe(el));
         }
 
         function setMusicIcon() {
