@@ -848,6 +848,112 @@
         }
         .s-step.s-active .s-grown-sub { opacity: 1; }
 
+        /* ===== CALENDAR ===== */
+        .wedding-calendar {
+            background: var(--mist);
+            border-radius: 16px;
+            border: 1px solid #e9dccf;
+            padding: 20px 16px 16px;
+            margin-bottom: 0;
+        }
+        .cal-month {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--blush);
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .cal-day-label {
+            font-size: 9px;
+            font-weight: 600;
+            text-align: center;
+            color: #bba99e;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding-bottom: 6px;
+        }
+        .cal-day {
+            font-size: 13px;
+            text-align: center;
+            color: var(--bark);
+            padding: 5px 2px;
+            border-radius: 50%;
+            line-height: 1;
+            font-weight: 400;
+        }
+        .cal-day.empty { color: transparent; }
+        .cal-day.today {
+            background: var(--blush);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 50%;
+            position: relative;
+        }
+        .cal-day.today::after {
+            content: '♥';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--blush);
+        }
+
+        /* RSVP deadline notice */
+        .rsvp-deadline {
+            background: linear-gradient(135deg, #fff8f4, #fdf0ea);
+            border: 1px solid #f0ddd0;
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .rsvp-deadline-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 15px;
+            color: #7a5c52;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .rsvp-deadline-text strong {
+            color: var(--blush);
+            font-style: normal;
+        }
+        .rsvp-timer {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        .rsvp-timer-box {
+            background: var(--mist);
+            border-radius: 10px;
+            padding: 8px 10px;
+            border: 1px solid #eaddd0;
+            min-width: 52px;
+        }
+        .rsvp-timer-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--blush);
+            line-height: 1;
+        }
+        .rsvp-timer-lbl {
+            font-size: 8px;
+            color: #b09888;
+            text-transform: lowercase;
+            letter-spacing: 0.3px;
+        }
+
         @media (max-width: 420px) {
             .timer-grid { grid-template-columns: repeat(2, 1fr); }
             .names-main { font-size: 34px; }
@@ -902,7 +1008,9 @@
             <div class="s-grown-sub">и теперь приглашаем вас разделить<br>с нами самый важный день нашей жизни</div>
             <button class="s-btn" id="sBtn2">Открыть приглашение</button>
         </div>
-    </div> loop preload="auto" playsinline>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto" playsinline x-webkit-airplay="allow">
         <source src="music.mp3" type="audio/mpeg">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
@@ -991,6 +1099,54 @@
                 </div>
             </div>
 
+            <!-- Календарь -->
+            <div class="section reveal">
+                <div class="wedding-calendar">
+                    <div class="cal-month">Сентябрь</div>
+                    <div class="cal-grid">
+                        <div class="cal-day-label">Пн</div>
+                        <div class="cal-day-label">Вт</div>
+                        <div class="cal-day-label">Ср</div>
+                        <div class="cal-day-label">Чт</div>
+                        <div class="cal-day-label">Пт</div>
+                        <div class="cal-day-label">Сб</div>
+                        <div class="cal-day-label">Вс</div>
+                        <!-- Sep 2026 starts Tuesday (index 1) -->
+                        <div class="cal-day empty"></div>
+                        <div class="cal-day">1</div>
+                        <div class="cal-day">2</div>
+                        <div class="cal-day">3</div>
+                        <div class="cal-day">4</div>
+                        <div class="cal-day today">5</div>
+                        <div class="cal-day">6</div>
+                        <div class="cal-day">7</div>
+                        <div class="cal-day">8</div>
+                        <div class="cal-day">9</div>
+                        <div class="cal-day">10</div>
+                        <div class="cal-day">11</div>
+                        <div class="cal-day">12</div>
+                        <div class="cal-day">13</div>
+                        <div class="cal-day">14</div>
+                        <div class="cal-day">15</div>
+                        <div class="cal-day">16</div>
+                        <div class="cal-day">17</div>
+                        <div class="cal-day">18</div>
+                        <div class="cal-day">19</div>
+                        <div class="cal-day">20</div>
+                        <div class="cal-day">21</div>
+                        <div class="cal-day">22</div>
+                        <div class="cal-day">23</div>
+                        <div class="cal-day">24</div>
+                        <div class="cal-day">25</div>
+                        <div class="cal-day">26</div>
+                        <div class="cal-day">27</div>
+                        <div class="cal-day">28</div>
+                        <div class="cal-day">29</div>
+                        <div class="cal-day">30</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Место -->
             <div class="section reveal">
                 <div class="section-title">Место проведения</div>
@@ -1018,24 +1174,12 @@
                 <div class="dress-gender">
                     <div class="dress-gender-title">Для девушек:</div>
                     <div class="swatches">
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#e8607a;"></div>
-                        </div>
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#ffb48a;"></div>
-                        </div>
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#7bba6e;"></div>
-                        </div>
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#6aa8e0;"></div>
-                        </div>
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#b47fc4;"></div>
-                        </div>
-                        <div class="swatch">
-                            <div class="swatch-circle" style="background:#c2848a;"></div>
-                        </div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#ecd0b3;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#9a9a22;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#dcdcdc;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#7a4830;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#f0dea0;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#a17b86;"></div></div>
                     </div>
                 </div>
 
@@ -1074,6 +1218,17 @@
             <!-- Форма -->
             <div class="section reveal" style="margin-top: 24px;">
                 <div class="section-title">Подтвердите присутствие</div>
+                <div class="rsvp-deadline">
+                    <div class="rsvp-deadline-text">
+                        Будем очень признательны, если вы сообщите нам о своём присутствии<br>
+                        до <strong>1 июля 2026 года</strong> — нам важно успеть всё подготовить ✨
+                    </div>
+                    <div class="rsvp-timer">
+                        <div class="rsvp-timer-box"><div class="rsvp-timer-num" id="rDays">0</div><div class="rsvp-timer-lbl">дней</div></div>
+                        <div class="rsvp-timer-box"><div class="rsvp-timer-num" id="rHours">0</div><div class="rsvp-timer-lbl">часов</div></div>
+                        <div class="rsvp-timer-box"><div class="rsvp-timer-num" id="rMins">0</div><div class="rsvp-timer-lbl">минут</div></div>
+                    </div>
+                </div>
                 <form id="rsvpForm" onsubmit="submitResponse(event)">
                     <div class="form-group">
                         <input type="text" id="nameInput" placeholder="Ваше имя" required>
@@ -1129,6 +1284,17 @@
                 document.getElementById("hours").textContent   = Math.floor(diff % 86400000 / 3600000);
                 document.getElementById("minutes").textContent = Math.floor(diff % 3600000 / 60000);
                 document.getElementById("seconds").textContent = Math.floor(diff % 60000 / 1000);
+            }
+            const rTarget = new Date("2026-07-01T00:00:00").getTime();
+            const rDiff = rTarget - Date.now();
+            if (rDiff > 0) {
+                document.getElementById("rDays").textContent  = Math.floor(rDiff / 86400000);
+                document.getElementById("rHours").textContent = Math.floor(rDiff % 86400000 / 3600000);
+                document.getElementById("rMins").textContent  = Math.floor(rDiff % 3600000 / 60000);
+            } else {
+                document.getElementById("rDays").textContent  = "0";
+                document.getElementById("rHours").textContent = "0";
+                document.getElementById("rMins").textContent  = "0";
             }
         }
 
@@ -1209,6 +1375,18 @@
         bgMusic.addEventListener("ended", () => {
             ensureMusicPlaying();
         });
+
+        // iOS Safari: unlock audio context on first touch
+        let audioUnlocked = false;
+        document.addEventListener("touchstart", () => {
+            if (!audioUnlocked) {
+                audioUnlocked = true;
+                bgMusic.load();
+                if (inviteContainer.classList.contains("is-open") && bgMusic.paused) {
+                    ensureMusicPlaying();
+                }
+            }
+        }, { once: false, passive: true });
 
         updateTimer();
         setInterval(updateTimer, 1000);
