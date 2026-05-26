@@ -546,11 +546,10 @@
         }
 
         .swatches {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            max-width: 360px;
-            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .swatch {
@@ -559,17 +558,7 @@
             flex-direction: column;
             align-items: center;
             gap: 0;
-            justify-self: center;
         }
-
-        /* Circular palette layout */
-        .swatch:nth-child(1) { grid-column: 4; }
-        .swatch:nth-child(2) { grid-column: 2; }
-        .swatch:nth-child(3) { grid-column: 6; }
-        .swatch:nth-child(4) { grid-column: 1; }
-        .swatch:nth-child(5) { grid-column: 7; }
-        .swatch:nth-child(6) { grid-column: 3; }
-        .swatch:nth-child(7) { grid-column: 5; }
 
         .swatch-circle {
             width: 54px;
@@ -1191,7 +1180,7 @@
                         <div class="swatch"><div class="swatch-circle" style="background:#b4beff;"></div></div>
                         <div class="swatch"><div class="swatch-circle" style="background:#b8b8b8;"></div></div>
                         <div class="swatch"><div class="swatch-circle" style="background:#a17b86;"></div></div>
-                        <div class="swatch"><div class="swatch-circle" style="background:#9a9a22;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#38571a;"></div></div>
                         <div class="swatch"><div class="swatch-circle" style="background:#7a4830;"></div></div>
                     </div>
                 </div>
@@ -1206,7 +1195,7 @@
                             <div class="swatch-circle" style="background:#b8b8b8;"></div>
                         </div>
                         <div class="swatch">
-                            <div class="swatch-circle" style="background:#808000;"></div>
+                            <div class="swatch-circle" style="background:#38571a;"></div>
                         </div>
                         <div class="swatch">
                             <div class="swatch-circle" style="background:#7a4830;"></div>
