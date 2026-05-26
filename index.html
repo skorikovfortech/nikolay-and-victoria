@@ -1298,15 +1298,36 @@
             }
         }
 
-        function submitResponse(e) {
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbyhKexU94U1O4PkN6L-QnqpZ2vWAhu9KUmYwc6mSmS-CzBqHxVjgGl0HeK4bSU8Ho21/exec";
+
+        async function submitResponse(e) {
             e.preventDefault();
-            const name    = document.getElementById("nameInput").value;
+            const btn     = document.querySelector(".submit-btn");
+            const name    = document.getElementById("nameInput").value.trim();
             const resp    = document.getElementById("responseSelect").value;
-            const comment = document.getElementById("commentInput").value;
-            const labels  = { yes: "с радостью приду", no: "не смогу приехать", maybe: "ещё не решил(а)" };
-            let msg = name + " ответил(а): " + labels[resp];
-            if (comment) msg += "\nКомментарий: " + comment;
-            window.open("https://t.me/kolyyyyan?text=" + encodeURIComponent(msg), "_blank");
+            const comment = document.getElementById("commentInput").value.trim();
+
+            if (!name) return;
+
+            btn.disabled = true;
+            btn.textContent = "Отправляем...";
+
+            try {
+                await fetch(SHEET_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, response: resp, comment })
+                });
+                // no-cors даёт opaque response — считаем успехом
+                btn.style.background = "linear-gradient(135deg, #7db87a, #5a9e57)";
+                btn.textContent = "✓ Ответ отправлен, спасибо!";
+                document.getElementById("rsvpForm").reset();
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = "Отправить ответ";
+                alert("Что-то пошло не так, попробуйте ещё раз");
+            }
         }
 
         function initReveal() {
