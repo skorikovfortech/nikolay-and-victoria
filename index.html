@@ -546,9 +546,11 @@
         }
 
         .swatches {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            max-width: 360px;
+            margin: 0 auto;
         }
 
         .swatch {
@@ -557,21 +559,31 @@
             flex-direction: column;
             align-items: center;
             gap: 0;
+            justify-self: center;
         }
 
+        /* Circular palette layout */
+        .swatch:nth-child(1) { grid-column: 4; }
+        .swatch:nth-child(2) { grid-column: 2; }
+        .swatch:nth-child(3) { grid-column: 6; }
+        .swatch:nth-child(4) { grid-column: 1; }
+        .swatch:nth-child(5) { grid-column: 7; }
+        .swatch:nth-child(6) { grid-column: 3; }
+        .swatch:nth-child(7) { grid-column: 5; }
+
         .swatch-circle {
-            width: 46px;
-            height: 64px;
-            border-radius: 999px;
-            border: 2.5px solid rgba(255,255,255,0.92);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.16), inset 0 1px 3px rgba(255,255,255,0.35);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.95);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.18), inset 0 1px 4px rgba(255,255,255,0.4);
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
             cursor: pointer;
         }
 
         .swatch-circle:hover {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.22), inset 0 1px 3px rgba(255,255,255,0.4);
+            transform: scale(1.15) translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.26), inset 0 1px 4px rgba(255,255,255,0.5);
         }
 
         .swatch-name {
@@ -1174,12 +1186,13 @@
                 <div class="dress-gender">
                     <div class="dress-gender-title">Для девушек:</div>
                     <div class="swatches">
-                        <div class="swatch"><div class="swatch-circle" style="background:#ecd0b3;"></div></div>
-                        <div class="swatch"><div class="swatch-circle" style="background:#9a9a22;"></div></div>
-                        <div class="swatch"><div class="swatch-circle" style="background:#b8b8b8;"></div></div>
-                        <div class="swatch"><div class="swatch-circle" style="background:#7a4830;"></div></div>
                         <div class="swatch"><div class="swatch-circle" style="background:#f0dea0;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#ecd0b3;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#b4beff;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#b8b8b8;"></div></div>
                         <div class="swatch"><div class="swatch-circle" style="background:#a17b86;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#9a9a22;"></div></div>
+                        <div class="swatch"><div class="swatch-circle" style="background:#7a4830;"></div></div>
                     </div>
                 </div>
 
